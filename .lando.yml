@@ -1,0 +1,47 @@
+name: serenity
+recipe: wordpress
+config:
+  php: "7.4"
+  composer_version: "2.0.7"
+  via: nginx:1.18
+  database: mariadb:10.6
+  webroot: bedrock/web
+services:
+  appserver:
+    build:
+      - scripts/bedrock-install.sh
+    run:
+      - scripts/sage-install.sh
+      - ln -sf ../.env bedrock/.env
+  theme:
+    type: node:16
+    overrides:
+      ports:
+        - 3000:3000
+    run:
+      - yarn --cwd ./bedrock/web/app/themes/sage install
+      - yarn --cwd ./bedrock/web/app/themes/sage build
+# specifying the env file here *should* be enough to get bedrock working
+env_file:
+  - .env
+proxy:
+  #   appserver_nginx:
+  #     - serenity.lndo.site
+  theme:
+    - localhost:3000
+tooling:
+  say-hello:
+    service: appserver
+    description: be nice!
+    cmd:
+      - 'echo "ohai!\nwelcome to $APP_NAME; the current directory is:\n$(pwd)\n$(ls -A)"'
+  install-wp:
+    service: appserver
+    description: install the wordpress
+    cmd: sh scripts/wp-install.sh
+  yarn:
+    service: theme
+  run-dev:
+    service: theme
+    description: start bud dev server
+    cmd: yarn --cwd bedrock/web/app/themes/sage dev
