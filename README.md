@@ -16,9 +16,14 @@ Using the power of Lando, this will set you up with a Bedrock WordPress project,
 - todo: .env.example
 
 3. `lando start`
+
+- todo: insert break to install wordpress on first run
+
 4. `lando install-wp`
 
 - todo: it would be nice to be able to automate this step, and there is a way I'm sure
+
+- todo: themename var in lando.yml for yarn commands
 
 5. make changes to bud.config.mjs if needed
 6. `lando run-dev`

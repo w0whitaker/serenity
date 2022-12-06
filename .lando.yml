@@ -45,3 +45,7 @@ tooling:
     service: theme
     description: start bud dev server
     cmd: yarn --cwd bedrock/web/app/themes/sage dev
+  npx:
+  	service: theme
+  	description: run npx in a container
+  	cmd: /usr/local/bin/npx
