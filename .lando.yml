@@ -1,10 +1,10 @@
-name: serenity
+name: $APP_NAME
 recipe: wordpress
 config:
-  php: "7.4"
-  composer_version: "2.0.7"
-  via: nginx:1.18
-  database: mariadb:10.6
+  php: "8.1"
+  composer_version: false
+  via: nginx:1.17
+  database: mariadb:10.3
   webroot: bedrock/web
 services:
   appserver:
@@ -14,7 +14,7 @@ services:
       - scripts/sage-install.sh
       - ln -sf ../.env bedrock/.env
   theme:
-    type: node:16
+    type: node:18
     overrides:
       ports:
         - 3000:3000
