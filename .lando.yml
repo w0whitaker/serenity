@@ -1,4 +1,4 @@
-name: $APP_NAME
+name: "serenity"
 recipe: wordpress
 config:
   php: "8.1"
